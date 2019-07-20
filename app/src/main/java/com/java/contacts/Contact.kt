@@ -1,8 +1,12 @@
 package com.java.contacts
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
+@Entity
 data class Contact(
+    @PrimaryKey
     val id: String = UUID.randomUUID().toString(),
     var name: String = "",
     var phone: String = "",

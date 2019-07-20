@@ -1,0 +1,60 @@
+package com.java.contacts.database
+
+import android.content.Context
+import androidx.room.Room
+import com.java.contacts.Contact
+import java.util.concurrent.Executors
+
+class ContactsRepository private constructor(context: Context) {
+
+    /**
+     * Public functions
+     */
+    fun fetchAllContacts() = contactsDao.fetchAllContacts()
+
+    fun fetchFavoriteContacts() = contactsDao.fetchFavoriteContacts()
+
+    fun loadContact(id: String) = contactsDao.loadContact(id)
+
+    fun saveContact(contact: Contact) {
+        // Simple example app, no error handling here.
+        executor.execute { contactsDao.saveContact(contact) }
+    }
+
+    fun removeContact(id: String) {
+        // Simple example app, no error handling here.
+        executor.execute { contactsDao.removeContact(id) }
+    }
+
+
+
+
+    /**
+     * Configuration...
+     */
+    private val contactsDatabase = Room.databaseBuilder(
+        context.applicationContext, ContactsDatabase::class.java, DATABASE_NAME)
+            .fallbackToDestructiveMigration()
+            .build()
+    private val contactsDao = contactsDatabase.contactDao()
+    private val executor = Executors.newSingleThreadExecutor()
+
+    companion object {
+
+        private const val DATABASE_NAME = "contacts_db"
+
+        private var INSTANCE: ContactsRepository? = null
+
+        fun initialize(context: Context) {
+            if (INSTANCE == null) {
+                INSTANCE =
+                    ContactsRepository(context)
+            }
+        }
+
+        fun get(): ContactsRepository {
+            return INSTANCE ?:
+            throw IllegalStateException("ContactsRepository must be initialized")
+        }
+    }
+}

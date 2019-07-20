@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="contact" type="androidx.lifecycle.LiveData&lt;com.java.contacts.Contact&gt;" />
+        <variable name="mode" type="com.java.contacts.detail.Mode" />
+        <import type="com.java.contacts.detail.Mode"/>
+    </data>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contact_property_name"
+                    android:text="@={contact.name}"
+            />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/contact_property_phone"
+                    android:text="@={contact.phone}"
+                    android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="@dimen/vertical_spacer_vertical_margin"
+              android:layout_marginBottom="@dimen/vertical_spacer_vertical_margin"
+              android:background="@color/colorDivider"
+              app:isVisible="@{ mode == Mode.EDIT }" />
+
+        <Button android:id="@+id/delete_contact_btn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/title_contact_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isVisible="@{ mode == Mode.EDIT }" />
+
+    </LinearLayout>
+</layout>

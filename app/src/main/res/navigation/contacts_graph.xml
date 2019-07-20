@@ -6,8 +6,22 @@
             app:startDestination="@id/contacts_list">
 
     <fragment android:id="@+id/contacts_list"
-              android:name="com.java.contacts.ContactsListFragment"
+              android:name="com.java.contacts.list.ContactsListFragment"
               tools:layout="@layout/fragment_contacts_list"
-              android:label="Contacts List"/>
+              android:label="All Contacts">
+        <action android:id="@+id/to_contact_detail" app:destination="@id/contact_detail"
+                app:enterAnim="@anim/nav_default_enter_anim" app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim" app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
+
+    <fragment android:id="@+id/contact_detail"
+              android:name="com.java.contacts.detail.ContactDetailFragment"
+              tools:layout="@layout/fragment_contact_detail"
+              android:label="Contact Details">
+        <argument android:name="contactId"
+                  app:argType="string"
+                  app:nullable="true"
+                  android:defaultValue="@null"/>
+    </fragment>
 
 </navigation>
