@@ -7,7 +7,7 @@ import com.java.contacts.Contact
 @Dao
 interface ContactDao {
 
-    @Query("select * from contact")
+    @Query("select * from contact order by name")
     fun fetchAllContacts(): LiveData<List<Contact>>
 
     @Query("select * from contact where isFavorite = 0")

@@ -63,7 +63,8 @@ class ContactsListFragment : Fragment() {
     }
 
     private fun onContactItemClick(contact: Contact) {
-        Toast.makeText(context, "Clicked $contact", Toast.LENGTH_SHORT).show()
+        findNavController().navigate(
+            ContactsListFragmentDirections.toContactDetail(contactId = contact.id))
     }
 
     var viewModelFactory = object : ViewModelProvider.Factory {

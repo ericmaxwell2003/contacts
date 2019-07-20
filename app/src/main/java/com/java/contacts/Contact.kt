@@ -7,7 +7,7 @@ import java.util.*
 @Entity
 data class Contact(
     @PrimaryKey
-    val id: String = UUID.randomUUID().toString(),
+    var id: String = UUID.randomUUID().toString(),
     var name: String = "",
     var phone: String = "",
     var isFavorite: Boolean = false)
