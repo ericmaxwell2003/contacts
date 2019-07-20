@@ -53,11 +53,28 @@ class ContactsListFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.option_menu, menu)
+
+        val toggleFavorites = menu.findItem(R.id.toggle_favorites_only)
+
+        val (toggleFavsTitle, toggleFavsIcon) = if (contactsListVm.showFavoriteOnlyCurrentValue) {
+            arrayOf(R.string.title_show_all, R.drawable.ic_contact_favorite_selected_white)
+        } else {
+            arrayOf(R.string.title_favorites_only, R.drawable.ic_contact_favorite_unselected_white)
+        }
+        toggleFavorites.setTitle(toggleFavsTitle)
+        toggleFavorites.setIcon(toggleFavsIcon)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, findNavController()) ||
-           super.onOptionsItemSelected(item)
+           when(item.itemId) {
+               R.id.toggle_favorites_only -> {
+                   contactsListVm.toggleFavoriteOnly()
+                   requireActivity().invalidateOptionsMenu()
+                   true
+               }
+               else ->  super.onOptionsItemSelected(item)
+           }
     }
 
     private fun onContactItemClick(contact: Contact) {

@@ -9,7 +9,7 @@ class ContactListViewModel() : ViewModel() {
 
     private val contactsRepository = ContactsRepository.get()
 
-    val showFavoriteOnly = MutableLiveData<Boolean>(false)
+    private val showFavoriteOnly = MutableLiveData<Boolean>(false)
 
     val contacts = Transformations.switchMap(showFavoriteOnly) { favoriteOnly ->
         when {
@@ -18,7 +18,9 @@ class ContactListViewModel() : ViewModel() {
         }
     }
 
+    val showFavoriteOnlyCurrentValue get() = showFavoriteOnly.value!!
+
     fun toggleFavoriteOnly() {
-        showFavoriteOnly.value = !(showFavoriteOnly.value!!)
+        showFavoriteOnly.value = !showFavoriteOnlyCurrentValue
     }
 }

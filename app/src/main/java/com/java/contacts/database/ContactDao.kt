@@ -10,7 +10,7 @@ interface ContactDao {
     @Query("select * from contact order by name")
     fun fetchAllContacts(): LiveData<List<Contact>>
 
-    @Query("select * from contact where isFavorite = 0")
+    @Query("select * from contact where isFavorite = 0  order by name")
     fun fetchFavoriteContacts(): LiveData<List<Contact>>
 
     @Query("select * from contact where id=:id")

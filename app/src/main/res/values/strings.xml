@@ -5,7 +5,9 @@
     <string name="title_home">All Contacts</string>
     <string name="title_settings">Settings</string>
     <string name="title_contact_add">Add Contact</string>
+
     <string name="title_favorites_only">Favorites Only</string>
+    <string name="title_show_all">Show All</string>
 
     <string name="contact_property_name">Name</string>
     <string name="contact_property_phone">Phone</string>
