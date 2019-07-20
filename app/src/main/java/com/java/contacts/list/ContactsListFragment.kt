@@ -20,9 +20,7 @@ import com.java.contacts.R
 
 class ContactsListFragment : Fragment() {
 
-    private val contactsListVm by viewModels<ContactListViewModel> {
-        viewModelFactory
-    }
+    private val contactsListVm by viewModels<ContactListViewModel>()
 
     lateinit var binding: FragmentContactsListBinding
     lateinit var adapter: ContactsListAdapter
@@ -66,11 +64,4 @@ class ContactsListFragment : Fragment() {
         findNavController().navigate(
             ContactsListFragmentDirections.toContactDetail(contactId = contact.id))
     }
-
-    var viewModelFactory = object : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ContactListViewModel(false) as T
-        }
-    }
-
 }

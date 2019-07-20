@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/show_favorites_only"
+          android:icon="@drawable/ic_contact_favorite_unselected_white"
+          android:title="@string/title_favorites_only"
+          app:showAsAction="ifRoom|withText" />
+
     <item android:id="@+id/to_contact_detail"
-          android:icon="@drawable/ic_contact_add"
+          android:icon="@drawable/ic_contact_add_white"
           android:title="@string/title_contact_add"
           app:showAsAction="ifRoom|withText" />
 
