@@ -1,8 +1,8 @@
-package com.java.contacts.database
+package com.acme.contacts.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.java.contacts.Contact
+import com.acme.contacts.Contact
 
 @Database(entities = [ Contact::class ], exportSchema = false, version = 1 )
 abstract class ContactsDatabase : RoomDatabase() {

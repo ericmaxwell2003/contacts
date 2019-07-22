@@ -1,4 +1,4 @@
-package com.java.contacts
+package com.acme.contacts
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

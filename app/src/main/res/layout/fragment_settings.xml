@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:gravity="center"
-            android:text="Settings"/>
+        <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/message_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/encouragement_message"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button android:id="@+id/sim_deeplink_btn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/title_simulate_notification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+</layout>

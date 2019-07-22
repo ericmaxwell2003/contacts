@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <variable name="contact" type="androidx.lifecycle.LiveData&lt;com.java.contacts.Contact&gt;" />
-        <variable name="mode" type="com.java.contacts.detail.Mode" />
-        <import type="com.java.contacts.detail.Mode"/>
+        <variable name="contact" type="androidx.lifecycle.LiveData&lt;com.acme.contacts.Contact&gt;" />
+        <variable name="mode" type="com.acme.contacts.detail.Mode" />
+        <import type="com.acme.contacts.detail.Mode"/>
     </data>
     <LinearLayout
             android:orientation="vertical"
@@ -42,11 +42,16 @@
               android:layout_height="1dp"
               android:layout_marginTop="@dimen/vertical_spacer_vertical_margin"
               android:layout_marginBottom="@dimen/vertical_spacer_vertical_margin"
-              android:background="@color/colorDivider"
-              app:isVisible="@{ mode == Mode.EDIT }" />
+              android:background="@color/colorDivider" />
+
+        <Button android:id="@+id/save_contact_btn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:text="@string/title_contact_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         <Button android:id="@+id/delete_contact_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/Widget.AppCompat.Button"
                 android:text="@string/title_contact_delete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

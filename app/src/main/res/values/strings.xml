@@ -13,5 +13,10 @@
     <string name="contact_property_phone">Phone</string>
 
     <string name="title_contact_delete">Delete Contact</string>
+    <string name="title_contact_save">Save Changes</string>
+    <string name="title_simulate_notification">Sim Notification</string>
+
+    <string name="notification_favorites_channel_name">Favorites Updates</string>
+    <string name="encouragement_message">Encouragement Message</string>
 
 </resources>

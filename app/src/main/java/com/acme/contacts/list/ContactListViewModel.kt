@@ -1,9 +1,10 @@
-package com.java.contacts.list
+package com.acme.contacts.list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.java.contacts.database.ContactsRepository
+import com.acme.contacts.Contact
+import com.acme.contacts.database.ContactsRepository
 
 class ContactListViewModel() : ViewModel() {
 
@@ -20,7 +21,12 @@ class ContactListViewModel() : ViewModel() {
 
     val showFavoriteOnlyCurrentValue get() = showFavoriteOnly.value!!
 
-    fun toggleFavoriteOnly() {
+    fun toggleShowFavoritesOnly() {
         showFavoriteOnly.value = !showFavoriteOnlyCurrentValue
+    }
+
+    fun toggleContactFavoriteStatus(contact: Contact) {
+        contact.isFavorite = !contact.isFavorite
+        contactsRepository.saveContact(contact)
     }
 }

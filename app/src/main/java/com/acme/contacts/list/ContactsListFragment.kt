@@ -1,22 +1,18 @@
-package com.java.contacts.list
+package com.acme.contacts.list
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.java.contacts.databinding.FragmentContactsListBinding
+import com.acme.contacts.databinding.FragmentContactsListBinding
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.java.contacts.Contact
-import com.java.contacts.R
+import com.acme.contacts.Contact
+import com.acme.contacts.R
 
 class ContactsListFragment : Fragment() {
 
@@ -36,23 +32,26 @@ class ContactsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        adapter = ContactsListAdapter(onClickItem = ::onContactItemClick)
+        adapter = ContactsListAdapter(
+            onClickItem = ::onContactItemClick,
+            onToggleFavoriteStatus = ::toggleContactFavoriteStatus
+        )
 
         val rv = binding.rvContactsList
         rv.layoutManager = LinearLayoutManager(context)
         rv.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         rv.adapter = adapter
 
-        contactsListVm.contacts.observe(viewLifecycleOwner, Observer { allContacts ->
-            allContacts?.let {
-                adapter.submitList(allContacts)
+        contactsListVm.contacts.observe(viewLifecycleOwner, Observer { contacts ->
+            contacts?.let {
+                adapter.submitList(contacts)
             }
         })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.option_menu, menu)
+        inflater.inflate(R.menu.contacts_list_option_menu, menu)
 
         val toggleFavorites = menu.findItem(R.id.toggle_favorites_only)
 
@@ -69,7 +68,7 @@ class ContactsListFragment : Fragment() {
         return NavigationUI.onNavDestinationSelected(item, findNavController()) ||
            when(item.itemId) {
                R.id.toggle_favorites_only -> {
-                   contactsListVm.toggleFavoriteOnly()
+                   contactsListVm.toggleShowFavoritesOnly()
                    requireActivity().invalidateOptionsMenu()
                    true
                }
@@ -80,5 +79,9 @@ class ContactsListFragment : Fragment() {
     private fun onContactItemClick(contact: Contact) {
         findNavController().navigate(
             ContactsListFragmentDirections.toContactDetail(contactId = contact.id))
+    }
+
+    private fun toggleContactFavoriteStatus(contact: Contact) {
+        contactsListVm.toggleContactFavoriteStatus(contact)
     }
 }

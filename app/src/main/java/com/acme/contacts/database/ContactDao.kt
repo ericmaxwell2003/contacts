@@ -1,8 +1,8 @@
-package com.java.contacts.database
+package com.acme.contacts.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.java.contacts.Contact
+import com.acme.contacts.Contact
 
 @Dao
 interface ContactDao {
@@ -10,7 +10,7 @@ interface ContactDao {
     @Query("select * from contact order by name")
     fun fetchAllContacts(): LiveData<List<Contact>>
 
-    @Query("select * from contact where isFavorite = 0  order by name")
+    @Query("select * from contact where isFavorite = 1 order by name")
     fun fetchFavoriteContacts(): LiveData<List<Contact>>
 
     @Query("select * from contact where id=:id")
@@ -19,8 +19,7 @@ interface ContactDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveContact(contact: Contact)
 
-    @Transaction
-    @Query("delete from contact where id=:id")
-    fun removeContact(id: String)
+    @Delete
+    fun removeContact(contact: Contact)
 
 }

@@ -1,10 +1,10 @@
-package com.java.contacts.detail
+package com.acme.contacts.detail
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.java.contacts.Contact
-import com.java.contacts.database.ContactsRepository
+import com.acme.contacts.Contact
+import com.acme.contacts.database.ContactsRepository
 
 class ContactDetailViewModel(contactId: String?) : ViewModel() {
 
@@ -20,7 +20,7 @@ class ContactDetailViewModel(contactId: String?) : ViewModel() {
     }
 
     fun deleteContact() {
-        contactsRepository.removeContact(contact.value!!.id)
+        contactsRepository.removeContact(contact.value!!)
     }
 
 }

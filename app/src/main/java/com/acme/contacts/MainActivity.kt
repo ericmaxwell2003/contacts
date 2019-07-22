@@ -1,4 +1,4 @@
-package com.java.contacts
+package com.acme.contacts
 
 import android.os.Bundle
 import android.view.View

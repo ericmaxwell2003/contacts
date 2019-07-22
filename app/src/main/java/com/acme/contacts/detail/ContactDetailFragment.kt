@@ -1,9 +1,12 @@
-package com.java.contacts.detail
+package com.acme.contacts.detail
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,8 +14,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.java.contacts.R
-import com.java.contacts.databinding.FragmentContactDetailBinding
+import com.acme.contacts.R
+import com.acme.contacts.databinding.FragmentContactDetailBinding
+
 
 class ContactDetailFragment : Fragment() {
 
@@ -31,15 +35,29 @@ class ContactDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.lifecycleOwner = viewLifecycleOwner
-        binding.contact = contactDetailVm.contact
-        binding.mode = Mode.NEW
-        binding.deleteContactBtn.setOnClickListener { onDeleteContact() }
+        binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            contact = contactDetailVm.contact
+            mode = if (args.contactId.isNullOrEmpty()) Mode.NEW else Mode.EDIT
+
+            saveContactBtn.setOnClickListener { onSaveContact() }
+            deleteContactBtn.setOnClickListener { onDeleteContact() }
+        }
     }
 
     override fun onStop() {
         super.onStop()
+
+        requireActivity().currentFocus?.let {
+            val inputManager = requireActivity()
+                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputManager.hideSoftInputFromWindow(it.windowToken, HIDE_NOT_ALWAYS)
+        }
+    }
+
+    fun onSaveContact() {
         contactDetailVm.saveContact()
+        findNavController().popBackStack()
     }
 
     fun onDeleteContact() {

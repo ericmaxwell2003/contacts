@@ -1,8 +1,8 @@
-package com.java.contacts.database
+package com.acme.contacts.database
 
 import android.content.Context
 import androidx.room.Room
-import com.java.contacts.Contact
+import com.acme.contacts.Contact
 import java.util.concurrent.Executors
 
 class ContactsRepository private constructor(context: Context) {
@@ -21,9 +21,9 @@ class ContactsRepository private constructor(context: Context) {
         executor.execute { contactsDao.saveContact(contact) }
     }
 
-    fun removeContact(id: String) {
+    fun removeContact(contact: Contact) {
         // Simple example app, no error handling here.
-        executor.execute { contactsDao.removeContact(id) }
+        executor.execute { contactsDao.removeContact(contact) }
     }
 
 

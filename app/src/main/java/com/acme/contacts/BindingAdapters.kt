@@ -1,4 +1,4 @@
-package com.java.contacts
+package com.acme.contacts
 
 import android.view.View
 import androidx.databinding.BindingAdapter
