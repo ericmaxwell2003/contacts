@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -26,7 +25,7 @@ class ContactDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contactId = arguments?.getString(contactId)
+        contactId = arguments?.getString("contactId")
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -60,11 +59,13 @@ class ContactDetailFragment : Fragment() {
     }
 
     fun onSaveContact() {
-        Toast.makeText(context, "On Save Contact", Toast.LENGTH_SHORT).show()
+        contactDetailVm.saveContact()
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     fun onDeleteContact() {
-        Toast.makeText(context, "On Delete Contact", Toast.LENGTH_SHORT).show()
+        contactDetailVm.deleteContact()
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     var viewModelFactory = object : ViewModelProvider.Factory {

@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acme.contacts.Contact
+import com.acme.contacts.MainActivity
 import com.acme.contacts.R
 import com.acme.contacts.databinding.FragmentContactsListBinding
 
@@ -38,6 +39,7 @@ class ContactsListFragment : Fragment() {
         )
 
         val rv = binding.rvContactsList
+        rv.setHasFixedSize(true)
         rv.layoutManager = LinearLayoutManager(context)
         rv.addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
         rv.adapter = adapter
@@ -72,7 +74,7 @@ class ContactsListFragment : Fragment() {
                    true
                }
                R.id.to_contact_detail -> {
-                   Toast.makeText(context, "to_contact_detail item clicked!!", Toast.LENGTH_SHORT).show()
+                   (activity as MainActivity).navToContactDetails()
                    true
                }
                else ->  super.onOptionsItemSelected(item)
@@ -80,7 +82,7 @@ class ContactsListFragment : Fragment() {
     }
 
     private fun onContactItemClick(contact: Contact) {
-        Toast.makeText(context, "contact ${contact.name} clicked", Toast.LENGTH_SHORT).show()
+        (activity as MainActivity).navToContactDetails(contact.id)
     }
 
     private fun toggleContactFavoriteStatus(contact: Contact) {
