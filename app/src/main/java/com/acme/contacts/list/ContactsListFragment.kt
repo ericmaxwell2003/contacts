@@ -2,20 +2,18 @@ package com.acme.contacts.list
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.acme.contacts.databinding.FragmentContactsListBinding
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.acme.contacts.Contact
 import com.acme.contacts.R
-import com.acme.contacts.security.SecureFragment
+import com.acme.contacts.databinding.FragmentContactsListBinding
 
-class ContactsListFragment : SecureFragment() {
+class ContactsListFragment : Fragment() {
 
     private val contactsListVm by viewModels<ContactListViewModel>()
 
@@ -67,11 +65,14 @@ class ContactsListFragment : SecureFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, findNavController()) ||
-           when(item.itemId) {
+        return when(item.itemId) {
                R.id.toggle_favorites_only -> {
                    contactsListVm.toggleShowFavoritesOnly()
                    requireActivity().invalidateOptionsMenu()
+                   true
+               }
+               R.id.to_contact_detail -> {
+                   Toast.makeText(context, "to_contact_detail item clicked!!", Toast.LENGTH_SHORT).show()
                    true
                }
                else ->  super.onOptionsItemSelected(item)
@@ -79,8 +80,7 @@ class ContactsListFragment : SecureFragment() {
     }
 
     private fun onContactItemClick(contact: Contact) {
-        findNavController().navigate(
-            ContactsListFragmentDirections.toContactDetail(contactId = contact.id))
+        Toast.makeText(context, "contact ${contact.name} clicked", Toast.LENGTH_SHORT).show()
     }
 
     private fun toggleContactFavoriteStatus(contact: Contact) {
