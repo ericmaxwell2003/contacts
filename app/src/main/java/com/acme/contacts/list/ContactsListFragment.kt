@@ -13,8 +13,9 @@ import com.acme.contacts.databinding.FragmentContactsListBinding
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.acme.contacts.Contact
 import com.acme.contacts.R
+import com.acme.contacts.security.SecureFragment
 
-class ContactsListFragment : Fragment() {
+class ContactsListFragment : SecureFragment() {
 
     private val contactsListVm by viewModels<ContactListViewModel>()
 
@@ -32,6 +33,7 @@ class ContactsListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         adapter = ContactsListAdapter(
             onClickItem = ::onContactItemClick,
             onToggleFavoriteStatus = ::toggleContactFavoriteStatus

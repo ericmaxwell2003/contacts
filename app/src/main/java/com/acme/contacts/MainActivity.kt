@@ -26,13 +26,14 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         // Allows to treat settings as a top level destination and hides the up button.
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.contacts_list, R.id.settings))
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.contacts_list, R.id.settings, R.id.enter_credentials))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // Hide the BottomNavigationView on the contact details destination.
         navController.addOnDestinationChangedListener { navController, newDestination, arguments ->
             when (newDestination.id) {
                 R.id.contact_detail -> bottomNavigationView.visibility = View.GONE
+                R.id.enter_credentials -> bottomNavigationView.visibility = View.GONE
                 else -> bottomNavigationView.visibility = View.VISIBLE
             }
         }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_graph"
+    app:startDestination="@id/enter_credentials">
+
+    <fragment
+        android:id="@+id/enter_credentials"
+        android:name="com.acme.contacts.security.EnterCredentialsFragment"
+        android:label="Authentication Required"
+        tools:layout="@layout/fragment_enter_credentials">
+        <action
+            android:id="@+id/action_login_pop"
+            app:popUpTo="@id/enter_credentials"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>
