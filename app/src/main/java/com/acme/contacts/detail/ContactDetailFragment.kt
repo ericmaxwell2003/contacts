@@ -61,7 +61,6 @@ class ContactDetailFragment : Fragment() {
 
     fun onSaveContact() {
         contactDetailVm.saveContact()
-        requireActivity().supportFragmentManager.popBackStack()
         findNavController().popBackStack()
     }
 
