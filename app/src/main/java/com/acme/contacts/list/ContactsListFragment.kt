@@ -2,17 +2,18 @@ package com.acme.contacts.list
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acme.contacts.Contact
-import com.acme.contacts.MainActivity
 import com.acme.contacts.R
 import com.acme.contacts.databinding.FragmentContactsListBinding
+import com.acme.contacts.list.ContactsListFragmentDirections.Companion.toContactDetail
 
 class ContactsListFragment : Fragment() {
 
@@ -67,14 +68,11 @@ class ContactsListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
+        return NavigationUI.onNavDestinationSelected(item, findNavController()) ||
+           when(item.itemId) {
                R.id.toggle_favorites_only -> {
                    contactsListVm.toggleShowFavoritesOnly()
                    requireActivity().invalidateOptionsMenu()
-                   true
-               }
-               R.id.to_contact_detail -> {
-                   (activity as MainActivity).navToContactDetails()
                    true
                }
                else ->  super.onOptionsItemSelected(item)
@@ -82,7 +80,7 @@ class ContactsListFragment : Fragment() {
     }
 
     private fun onContactItemClick(contact: Contact) {
-        (activity as MainActivity).navToContactDetails(contact.id)
+        findNavController().navigate(toContactDetail(contactId = contact.id))
     }
 
     private fun toggleContactFavoriteStatus(contact: Contact) {

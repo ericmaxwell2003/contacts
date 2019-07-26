@@ -12,20 +12,21 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.acme.contacts.R
 import com.acme.contacts.databinding.FragmentContactDetailBinding
 
 
 class ContactDetailFragment : Fragment() {
 
+    val args by navArgs<ContactDetailFragmentArgs>()
     val contactDetailVm by viewModels<ContactDetailViewModel> { viewModelFactory }
 
-    var contactId: String? = null
     lateinit var binding: FragmentContactDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contactId = arguments?.getString("contactId")
     }
 
     override fun onCreateView(inflater: LayoutInflater,
@@ -41,7 +42,7 @@ class ContactDetailFragment : Fragment() {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             contact = contactDetailVm.contact
-            mode = if (contactId.isNullOrEmpty()) Mode.NEW else Mode.EDIT
+            mode = if (args.contactId.isNullOrEmpty()) Mode.NEW else Mode.EDIT
 
             saveContactBtn.setOnClickListener { onSaveContact() }
             deleteContactBtn.setOnClickListener { onDeleteContact() }
@@ -61,16 +62,17 @@ class ContactDetailFragment : Fragment() {
     fun onSaveContact() {
         contactDetailVm.saveContact()
         requireActivity().supportFragmentManager.popBackStack()
+        findNavController().popBackStack()
     }
 
     fun onDeleteContact() {
         contactDetailVm.deleteContact()
-        requireActivity().supportFragmentManager.popBackStack()
+        findNavController().popBackStack()
     }
 
     var viewModelFactory = object : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return ContactDetailViewModel(contactId) as T
+            return ContactDetailViewModel(args.contactId) as T
         }
     }
 }
