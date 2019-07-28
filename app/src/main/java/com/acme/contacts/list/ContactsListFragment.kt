@@ -3,7 +3,6 @@ package com.acme.contacts.list
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -14,8 +13,9 @@ import com.acme.contacts.Contact
 import com.acme.contacts.R
 import com.acme.contacts.databinding.FragmentContactsListBinding
 import com.acme.contacts.list.ContactsListFragmentDirections.Companion.toContactDetail
+import com.acme.contacts.security.SecureFragment
 
-class ContactsListFragment : Fragment() {
+class ContactsListFragment : SecureFragment() {
 
     private val contactsListVm by viewModels<ContactListViewModel>()
 

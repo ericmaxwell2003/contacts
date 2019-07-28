@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.acme.contacts.R
+import com.acme.contacts.security.SecureFragment
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class SettingsFragment : Fragment() {
+class SettingsFragment : SecureFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

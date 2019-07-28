@@ -25,12 +25,13 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView.setupWithNavController(navController)
 
         // Adds the Up Button to the tool bar
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.contacts_list, R.id.settings))
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.contacts_list, R.id.settings, R.id.enter_credentials))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { navController, newDestination, arguments ->
             when (newDestination.id) {
                 R.id.contact_detail -> bottomNavigationView.visibility = View.GONE
+                R.id.enter_credentials -> bottomNavigationView.visibility = View.GONE
                 else -> bottomNavigationView.visibility = View.VISIBLE
             }
         }

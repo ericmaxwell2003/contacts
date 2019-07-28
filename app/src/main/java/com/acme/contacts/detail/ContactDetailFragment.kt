@@ -5,24 +5,22 @@ import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.view.inputmethod.InputMethodManager.HIDE_NOT_ALWAYS
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.onNavDestinationSelected
 import com.acme.contacts.FAVORITES_NOTIFICATION_CHANNEL_ID
 import com.acme.contacts.R
 import com.acme.contacts.databinding.FragmentContactDetailBinding
+import com.acme.contacts.security.SecureFragment
 
 
-class ContactDetailFragment : Fragment() {
+class ContactDetailFragment : SecureFragment() {
 
     val args by navArgs<ContactDetailFragmentArgs>()
     val contactDetailVm by viewModels<ContactDetailViewModel> { viewModelFactory }
@@ -83,8 +81,6 @@ class ContactDetailFragment : Fragment() {
     }
 
     fun simulateNotification() {
-        Toast.makeText(context, "Simulate Deep Link", Toast.LENGTH_SHORT).show()
-
         val pendingIntent = findNavController().createDeepLink()
             .setDestination(R.id.contact_detail)
             .setArguments(arguments)
