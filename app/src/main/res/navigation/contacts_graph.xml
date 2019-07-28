@@ -27,4 +27,9 @@
  
     </fragment>
 
+    <fragment android:id="@+id/settings"
+              android:name="com.acme.contacts.settings.SettingsFragment"
+              android:label="Settings"
+              tools:layout="@layout/fragment_settings" />
+
 </navigation>

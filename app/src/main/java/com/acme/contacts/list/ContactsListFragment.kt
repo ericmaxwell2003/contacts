@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.acme.contacts.Contact
@@ -68,7 +68,7 @@ class ContactsListFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, findNavController()) ||
+        return item.onNavDestinationSelected(findNavController()) ||
            when(item.itemId) {
                R.id.toggle_favorites_only -> {
                    contactsListVm.toggleShowFavoritesOnly()
