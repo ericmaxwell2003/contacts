@@ -18,7 +18,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contact_name_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/contact_property_name"
@@ -31,6 +32,7 @@
                 android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/contact_number_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/contact_property_phone"
