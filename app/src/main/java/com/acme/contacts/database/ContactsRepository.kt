@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.acme.contacts.Contact
+import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 
-class ContactsRepository private constructor(context: Context) {
+class ContactsRepository private constructor(context: Context, testMode: Boolean = false) {
 
     /**
      * Public functions
@@ -27,18 +28,27 @@ class ContactsRepository private constructor(context: Context) {
         executor.execute { contactsDao.removeContact(contact) }
     }
 
-
-
-
     /**
      * Configuration...
      */
-    private val contactsDatabase = Room.databaseBuilder(
-        context.applicationContext, ContactsDatabase::class.java, DATABASE_NAME)
-            .fallbackToDestructiveMigration()
-            .build()
-    private val contactsDao = contactsDatabase.contactDao()
-    private val executor = Executors.newSingleThreadExecutor()
+    private val contactsDatabase: ContactsDatabase
+    private val contactsDao: ContactDao
+    private val executor: Executor
+
+    init {
+        contactsDatabase = if (testMode) {
+            Room.inMemoryDatabaseBuilder(
+                context.applicationContext, ContactsDatabase::class.java)
+                .build()
+        } else {
+            Room.databaseBuilder(
+                context.applicationContext, ContactsDatabase::class.java, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
+                .build()
+        }
+        contactsDao = contactsDatabase.contactDao()
+        executor = Executors.newSingleThreadExecutor()
+    }
 
     companion object {
 
@@ -51,6 +61,13 @@ class ContactsRepository private constructor(context: Context) {
                 INSTANCE =
                     ContactsRepository(context)
             }
+        }
+
+        /**
+         * Initialize this repository for testing, using an in memory Room database instance.
+         */
+        fun setupForTesting(context: Context) {
+            INSTANCE = ContactsRepository(context, testMode = true)
         }
 
         fun get(): ContactsRepository {
