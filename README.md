@@ -6,7 +6,9 @@ Demo Application created for Navigation Architecture Component workshops.
 
 ## Lab
 
-There is a companion lab at : [https://cutt.ly/as-2019-nav-lab](https://cutt.ly/as-2019-nav-lab).  The lab is separated into 3 parts.
+There is a companion lab at : [https://cutt.ly/as-2019-nav-lab](https://cutt.ly/as-2019-nav-lab).  The lab is separated into 3 parts.  
+
+If you have issues accessing the link above, you can download the file from the repository as a PDF at this [link](https://github.com/ericmaxwell2003/contacts/raw/starter/lab_1/Navigation%20Lab%20Manual.pdf).
 
 ## Branches
 
